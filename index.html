@@ -15,17 +15,15 @@
 
     <nav>
         <a href="index.html" class="nav-logo" style="text-decoration:none;">⚽ FootStats</a>
+        <div class="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('open')">☰</div>
         <ul class="nav-links">
-            <li><a href="index.html#villalba" class="active">Villalba</a></li>
-            <li><a href="index.html#palmares-jugador">Palmarés</a></li>
-            <li><a href="argentina.html#liga">Liga Argentina</a></li>
-            <li><a href="argentina.html#copa">Copa Argentina</a></li>
-            <li><a href="argentina.html#supercopa">Supercopa</a></li>
-            <li><a href="sudamericano.html#sudamericana">Campeonato Sudamericano</a></li>
+            <li><a href="index.html">VILLALBA</a></li>
+            <li><a href="argentina.html">FUTBOL ARGENTINO</a></li>
+            <li><a href="sudamericano.html">FUTBOL SUDAMERICANO</a></li>
         </ul>
     </nav>
 
-<!-- ====== PLAYER HERO ====== -->
+    <!-- ====== PLAYER HERO ====== -->
     <section id="villalba" style="padding:0; border:none;">
         <div class="player-hero">
             <div class="player-photo-side">
@@ -105,8 +103,8 @@
         </div>
     </section>
 
-    
-<!-- ====== CAREER ====== -->
+
+    <!-- ====== CAREER ====== -->
     <section>
         <div class="section-header fade-in">
             <div class="section-number">01</div>
@@ -118,8 +116,8 @@
         <div class="career-grid" id="careerGrid"></div>
     </section>
 
-    
-<!-- ====== PLAYER PALMARES ====== -->
+
+    <!-- ====== PLAYER PALMARES ====== -->
     <section id="palmares-jugador">
         <div class="section-header fade-in">
             <div class="section-number">02</div>
@@ -131,7 +129,44 @@
         <div class="palmares-clubs" id="palmaresClubs"></div>
     </section>
 
-    
+
+
+    <!-- ====== SELECCION ARGENTINA ====== -->
+    <section id="seleccion">
+        <div class="section-header fade-in">
+            <div class="section-number">03</div>
+            <div class="section-title-block">
+                <div class="section-subtitle">Carrera Internacional</div>
+                <div class="section-title">Selección Argentina</div>
+            </div>
+        </div>
+
+        <h3 style="color:var(--gold); font-family:'Bebas Neue',sans-serif; font-size:2rem; letter-spacing:1px; margin-bottom:20px; text-transform:uppercase;"
+            class="fade-in">Estadísticas por temporada</h3>
+        <div class="career-grid fade-in" id="seleccionGrid" style="margin-bottom: 40px;"></div>
+
+        <h3 style="color:var(--gold); font-family:'Bebas Neue',sans-serif; font-size:2rem; letter-spacing:1px; margin-bottom:20px; text-transform:uppercase;"
+            class="fade-in">Resumen de Estadísticas</h3>
+        <div class="stats-overview fade-in" style="margin-bottom: 60px;">
+            <div class="stat-block">
+                <span class="num" id="totalSeleccionGoals">—</span>
+                <span class="lbl">Goles totales</span>
+            </div>
+            <div class="stat-block">
+                <span class="num" id="totalSeleccionGames">—</span>
+                <span class="lbl">Partidos jugados</span>
+            </div>
+            <div class="stat-block">
+                <span class="num" id="avgSeleccionGoals">—</span>
+                <span class="lbl">Promedio de Gol</span>
+            </div>
+        </div>
+
+        <h3 style="color:var(--gold); font-family:'Bebas Neue',sans-serif; font-size:2rem; letter-spacing:1px; margin-bottom:20px; text-transform:uppercase;"
+            class="fade-in">Palmarés Internacional</h3>
+        <div class="palmares-clubs" id="seleccionPalmares"></div>
+    </section>
+
     <footer>
         <span>⚽ FootStats — Estadísticas de Fútbol · Liga Argentina · Campeonato Sudamericano · 1965–2025</span>
     </footer>
@@ -300,6 +335,103 @@
         });
 
 
+
+        // ==============================
+        // SELECCION DATA
+        // ==============================
+        const seleccionData = [
+            { year: 2018, event: 'Amistosos', goals: '1', games: '1', link: 'arg_2018.html' },
+            { year: 2019, event: 'Copa Sudamérica', goals: '1', games: '4', link: '#' },
+            { year: 2020, event: 'Copa Mundial', goals: '2', games: '4', link: '#' },
+            { year: 2021, event: 'Amistosos', goals: '1', games: '2', link: '#' },
+            { year: 2022, event: 'Copa Sudamérica', goals: '5', games: '6', link: '#' },
+            { year: 2023, event: 'Copa de las Américas', goals: '2', games: '1', link: '#' },
+            { year: 2023, event: 'Copa Mundial', goals: '8', games: '7', link: '#' },
+            { year: 2024, event: 'Amistosos', goals: '2', games: '3', link: '#' },
+            { year: 2025, event: 'Copa Sudamérica', goals: '4', games: '6', link: '#' },
+            { year: 2026, event: 'Copa de las Américas', goals: '1', games: '1', link: '#' },
+            { year: 2026, event: 'Copa Mundial', goals: '-', games: '-', link: '#' },
+        ];
+
+        const seleccionGrid = document.getElementById('seleccionGrid');
+        seleccionData.forEach((d, i) => {
+            const clickAttr = (d.link && d.link !== '#') ? `onclick="window.location.href='${d.link}'" style="cursor:pointer; animation-delay:${i * 0.04}s"` : `style="animation-delay:${i * 0.04}s"`;
+            seleccionGrid.innerHTML += `
+    <div class="career-card fade-in" data-age="${d.year}" ${clickAttr}>
+      <div class="card-age">Año · ${d.year}</div>
+      <div class="card-club" style="font-size: 1.15rem; color: #72b2e8;">${d.event}</div>
+      <div class="card-number" style="margin-bottom: 24px;">Selección Mayor</div>
+      <div class="card-stats">
+        <div class="card-stat">
+          <span class="val goals">${d.goals}</span>
+          <span class="key">Goles</span>
+        </div>
+        <div class="card-stat">
+          <span class="val">${d.games}</span>
+          <span class="key">Partidos</span>
+        </div>
+      </div>
+      <div class="goals-bar" style="width:0%"></div>
+    </div>
+  `;
+        });
+
+        let selGoals = 0;
+        let selGames = 0;
+        seleccionData.forEach(d => {
+            if (d.goals !== '-') selGoals += parseInt(d.goals, 10);
+            if (d.games !== '-') selGames += parseInt(d.games, 10);
+        });
+        document.getElementById('totalSeleccionGoals').textContent = selGoals;
+        document.getElementById('totalSeleccionGames').textContent = selGames;
+        document.getElementById('avgSeleccionGoals').textContent = selGames > 0 ? (selGoals / selGames).toFixed(2) : '0.00';
+
+        const seleccionPalmaresData = [
+            {
+                club: 'Selección Argentina',
+                period: '2018–2026 (Retiro a los 30 años)',
+                titles: 5,
+                trophies: [
+                    { icon: '🏆', name: 'Copa Sudamérica', year: '2022' },
+                    { icon: '🌟', name: 'Copa de las Américas', year: '2023' },
+                    { icon: '🌍', name: 'Copa Mundial', year: '2023' },
+                    { icon: '🏆', name: 'Copa Sudamérica', year: '2025' },
+                    { icon: '🌟', name: 'Copa de las Américas', year: '2026' },
+                    { icon: '🌍', name: 'Copa Mundial', year: '2026 (A definir)' },
+                ]
+            }
+        ];
+
+        const seleccionPalmaresEl = document.getElementById('seleccionPalmares');
+        seleccionPalmaresData.forEach((club, ci) => {
+            const trophiesHtml = club.trophies.map(t => `
+    <div class="trophy-item">
+      <div class="trophy-icon">${t.icon}</div>
+      <div>
+        <div class="trophy-name">${t.name}</div>
+        <span class="trophy-year">${t.year}</span>
+      </div>
+    </div>
+  `).join('');
+
+            seleccionPalmaresEl.innerHTML += `
+    <div class="club-palmares-block fade-in" style="border-left: 3px solid #72b2e8;">
+      <div class="club-palmares-header">
+        <div>
+          <div class="club-name-big" style="color:#72b2e8;">${club.club}</div>
+          <div class="club-period">${club.period}</div>
+        </div>
+        <div style="text-align:center; margin-left:auto;">
+          <div class="club-title-count">${club.titles}</div>
+          <div class="club-title-label">${club.titles === 1 ? 'título' : 'títulos'}</div>
+        </div>
+      </div>
+      <div class="trophies-grid">${trophiesHtml}</div>
+    </div>
+  `;
+        });
+
+
         // ==============================
         // SCROLL OBSERVER
         // ==============================
@@ -328,4 +460,5 @@
         });
     </script>
 </body>
+
 </html>

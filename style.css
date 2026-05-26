@@ -640,6 +640,14 @@
             letter-spacing: 1px;
         }
 
+        .hamburger {
+            display: none;
+            font-size: 1.8rem;
+            color: var(--gold);
+            cursor: pointer;
+            user-select: none;
+        }
+
         /* RESPONSIVE */
         @media(max-width: 900px) {
             .player-hero {
@@ -671,8 +679,30 @@
                 padding: 0 20px;
             }
 
+            .hamburger {
+                display: block;
+            }
+
             .nav-links {
                 display: none;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                background: rgba(14, 26, 20, 0.98);
+                flex-direction: column;
+                padding: 20px 0;
+                border-bottom: 1px solid rgba(201, 168, 76, 0.2);
+            }
+
+            .nav-links.open {
+                display: flex;
+            }
+
+            .nav-links li {
+                width: 100%;
+                text-align: center;
+                margin: 10px 0;
             }
         }
 
