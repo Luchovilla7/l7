@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estadísticas de Fútbol</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,700;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <nav>
+        <a href="index.html" class="nav-logo" style="text-decoration:none;">⚽ FootStats</a>
+        <ul class="nav-links">
+            <li><a href="index.html#villalba" class="active">Villalba</a></li>
+            <li><a href="index.html#palmares-jugador">Palmarés</a></li>
+            <li><a href="argentina.html#liga">Liga Argentina</a></li>
+            <li><a href="argentina.html#copa">Copa Argentina</a></li>
+            <li><a href="argentina.html#supercopa">Supercopa</a></li>
+            <li><a href="sudamericano.html#sudamericana">Campeonato Sudamericano</a></li>
+        </ul>
+    </nav>
+
+<!-- ====== LIGA ARGENTINA ====== -->
+    <section id="liga">
+        <div class="section-header fade-in">
+            <div class="section-number">03</div>
+            <div class="section-title-block">
+                <div class="section-subtitle">Palmarés provincial</div>
+                <div class="section-title">Liga Argentina de Fútbol</div>
+            </div>
+        </div>
+        <div class="palmares-table-wrap fade-in" id="ligaTable"></div>
+    </section>
+
+    
+<!-- ====== COPA ARGENTINA ====== -->
+    <section id="copa">
+        <div class="section-header fade-in">
+            <div class="section-number">03</div>
+            <div class="section-title-block">
+                <div class="section-subtitle">Palmarés provincial</div>
+                <div class="section-title">Copa Argentina de Fútbol</div>
+            </div>
+        </div>
+        <div class="palmares-table-wrap fade-in" id="copaTable"></div>
+    </section>
+
+    
+<!-- ====== SUPERCOPA ====== -->
+    <section id="supercopa">
+        <div class="section-header fade-in">
+            <div class="section-number">04</div>
+            <div class="section-title-block">
+                <div class="section-subtitle">Palmarés provincial</div>
+                <div class="section-title">Supercopa Argentina de Fútbol</div>
+            </div>
+        </div>
+        <div class="palmares-table-wrap fade-in" id="supercopaTable"></div>
+    </section>
+
+    
+    <footer>
+        <span>⚽ FootStats — Estadísticas de Fútbol · Liga Argentina · Campeonato Sudamericano · 1965–2025</span>
+    </footer>
+
+    <script>
+
+
+        const ligaData = [
+            { prov: 'CABA', titulos: 15, years: [1965, 1968, 1971, 1974, 1976, 1980, 1984, 1987, 1991, 1995, 1999, 2002, 2006, 2014, 2019] },
+            { prov: 'Buenos Aires', titulos: 12, years: [1966, 1970, 1972, 1975, 1979, 1983, 1992, 1996, 2001, 2011, 2020, 2022] },
+            { prov: 'Córdoba', titulos: 9, years: [1967, 1973, 1978, 1981, 1989, 1994, 1997, 2003, 2012] },
+            { prov: 'Santa Fe', titulos: 8, years: [1969, 1977, 1982, 1985, 1990, 1998, 2008, 2016] },
+            { prov: 'Mendoza', titulos: 5, years: [1988, 1993, 2000, 2005, 2015] },
+            { prov: 'Misiones', titulos: 2, years: [1986, 2017] },
+            { prov: 'Tucumán', titulos: 2, years: [2013, 2024] },
+            { prov: 'Entre Ríos', titulos: 2, years: [2004, 2010] },
+            { prov: 'Chaco', titulos: 1, years: [2007] },
+            { prov: 'Salta', titulos: 1, years: [2018] },
+            { prov: 'Neuquén', titulos: 1, years: [2025] },
+            { prov: 'San Juan', titulos: 1, years: [2021] },
+            { prov: 'La Rioja', titulos: 1, years: [2023] },
+            { prov: 'San Luis', titulos: 1, years: [2009] },
+        ];
+
+
+        const copaData = [
+            { prov: 'Misiones', titulos: 12, years: [1965, 1971, 1974, 1978, 1983, 1986, 1990, 1994, 1998, 2003, 2009, 2015, 2024] },
+            { prov: 'Buenos Aires', titulos: 9, years: [1966, 1970, 1975, 1980, 1987, 1992, 2001, 2013, 2020] },
+            { prov: 'CABA', titulos: 7, years: [1967, 1972, 1976, 1981, 1985, 2002, 2018] },
+            { prov: 'Córdoba', titulos: 5, years: [1968, 1973, 1988, 1989, 2006, 2014, 2016] },
+            { prov: 'Santa Fe', titulos: 4, years: [1969, 1991, 2000, 2022] },
+            { prov: 'Tucumán', titulos: 3, years: [1979, 1995, 2019] },
+            { prov: 'Entre Ríos', titulos: 2, years: [1996, 2005] },
+            { prov: 'Mendoza', titulos: 2, years: [1984, 2010] },
+            { prov: 'Chaco', titulos: 2, years: [1993, 2021] },
+            { prov: 'San Juan', titulos: 2, years: [2004, 2017] },
+            { prov: 'Salta', titulos: 2, years: [1977, 2025] },
+            { prov: 'Corrientes', titulos: 2, years: [1982, 2007] },
+            { prov: 'La Rioja', titulos: 1, years: [1997] },
+            { prov: 'Formosa', titulos: 1, years: [1999] },
+            { prov: 'Neuquén', titulos: 1, years: [2011] },
+            { prov: 'San Luis', titulos: 1, years: [2012] },
+            { prov: 'Catamarca', titulos: 1, years: [2008] },
+            { prov: 'Jujuy', titulos: 1, years: [2023] },
+        ];
+
+
+        const supercopaData = [
+            { prov: 'Córdoba', titulos: 12, years: [1968, 1974, 1979, 1982, 1990, 1995, 1998, 2004, 2007, 2013, 2015, 2017] },
+            { prov: 'CABA', titulos: 10, years: [1966, 1969, 1972, 1973, 1975, 1977, 1988, 1992, 2000, 2003] },
+            { prov: 'Buenos Aires', titulos: 8, years: [1967, 1971, 1976, 1981, 1993, 2002, 2021, 2023] },
+            { prov: 'Mendoza', titulos: 6, years: [1985, 1989, 1994, 2001, 2006, 2011] },
+            { prov: 'Santa Fe', titulos: 6, years: [1970, 1978, 1983, 1986, 1991, 1999] },
+            { prov: 'Misiones', titulos: 5, years: [1984, 1987, 2016, 2018, 2025] },
+            { prov: 'Tucumán', titulos: 4, years: [1980, 1996, 2014, 2020] },
+            { prov: 'Entre Ríos', titulos: 3, years: [1997, 2005, 2006] },
+            { prov: 'Chaco', titulos: 1, years: [2008] },
+            { prov: 'Catamarca', titulos: 1, years: [2009] },
+            { prov: 'Neuquén', titulos: 1, years: [2012] },
+            { prov: 'Salta', titulos: 1, years: [2019] },
+            { prov: 'San Juan', titulos: 1, years: [2022] },
+            { prov: 'La Rioja', titulos: 1, years: [2024] },
+            { prov: 'San Luis', titulos: 1, years: [2010] },
+        ];
+
+
+        // ==============================
+        // BUILD PALMARES TABLE (ARG)
+        // ==============================
+        function buildPalmaresTable(data, containerId) {
+            const maxT = data[0].titulos;
+            let html = `<table class="palmares-table">
+    <thead><tr>
+      <th>#</th>
+      <th>Provincia</th>
+      <th>Títulos</th>
+      <th class="bar-cell">Dominancia</th>
+      <th>Años campeón</th>
+    </tr></thead><tbody>`;
+
+            data.forEach((row, i) => {
+                const pct = Math.round((row.titulos / maxT) * 100);
+                const rankClass = i === 0 ? 'rank-1' : i === 1 ? 'rank-2' : i === 2 ? 'rank-3' : 'rank-other';
+                const years = row.years.map(y => `<span class="year-tag">${y}</span>`).join('');
+                html += `<tr>
+      <td><span class="rank-badge ${rankClass}">${i + 1}</span></td>
+      <td><strong>${row.prov}</strong></td>
+      <td><span class="titles-count">${row.titulos}</span></td>
+      <td class="bar-cell">
+        <div style="font-size:0.65rem;color:var(--muted);margin-bottom:4px;">${pct}%</div>
+        <div class="title-bar" style="width:${pct}%"></div>
+      </td>
+      <td><div class="years-list">${years}</div></td>
+    </tr>`;
+            });
+
+            html += '</tbody></table>';
+            document.getElementById(containerId).innerHTML = html;
+        }
+        buildPalmaresTable(ligaData, 'ligaTable');
+        buildPalmaresTable(copaData, 'copaTable');
+        buildPalmaresTable(supercopaData, 'supercopaTable');
+
+
+        // ==============================
+        // SCROLL OBSERVER
+        // ==============================
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) e.target.classList.add('visible');
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        // ==============================
+        // NAV ACTIVE
+        // ==============================
+        window.addEventListener('scroll', () => {
+            const sections = ['villalba', 'palmares-jugador', 'liga', 'copa', 'supercopa', 'sudamericana'];
+            let current = '';
+            sections.forEach(id => {
+                const el = document.getElementById(id);
+                if (el && window.scrollY >= el.offsetTop - 80) current = id;
+            });
+            document.querySelectorAll('.nav-links a').forEach(a => {
+                const href = a.getAttribute('href');
+                a.classList.toggle('active', current && href.endsWith('#' + current));
+            });
+        });
+    </script>
+</body>
+</html>

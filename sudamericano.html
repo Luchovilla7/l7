@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estadísticas de Fútbol</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,700;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <nav>
+        <a href="index.html" class="nav-logo" style="text-decoration:none;">⚽ FootStats</a>
+        <ul class="nav-links">
+            <li><a href="index.html#villalba" class="active">Villalba</a></li>
+            <li><a href="index.html#palmares-jugador">Palmarés</a></li>
+            <li><a href="argentina.html#liga">Liga Argentina</a></li>
+            <li><a href="argentina.html#copa">Copa Argentina</a></li>
+            <li><a href="argentina.html#supercopa">Supercopa</a></li>
+            <li><a href="sudamericano.html#sudamericana">Campeonato Sudamericano</a></li>
+        </ul>
+    </nav>
+
+<!-- ====== COPA SUDAMERICANA ====== -->
+    <section id="sudamericana">
+        <div class="section-header fade-in">
+            <div class="section-number">05</div>
+            <div class="section-title-block">
+                <div class="section-subtitle">Palmarés internacional</div>
+                <div class="section-title">Campeonato Sudamericano</div>
+            </div>
+        </div>
+        <div class="palmares-table-wrap fade-in" id="sudamericanaTable"></div>
+    </section>
+
+    
+    <footer>
+        <span>⚽ FootStats — Estadísticas de Fútbol · Liga Argentina · Campeonato Sudamericano · 1965–2025</span>
+    </footer>
+
+    <script>
+
+
+        const sudData = [
+            { region: 'Río de Janeiro', pais: 'Brasil', flag: '🇧🇷', titulos: 7, years: [1972, 1973, 1979, 1996, 2014, 2015, 2024] },
+            { region: 'Buenos Aires', pais: 'Argentina', flag: '🇦🇷', titulos: 6, years: [1978, 1981, 1991, 1997, 2004, 2019] },
+            { region: 'São Paulo', pais: 'Brasil', flag: '🇧🇷', titulos: 4, years: [1968, 1969, 1984, 2012] },
+            { region: 'Minas Gerais', pais: 'Brasil', flag: '🇧🇷', titulos: 4, years: [1988, 2003, 2011, 2025] },
+            { region: 'Montevideo', pais: 'Uruguay', flag: '🇺🇾', titulos: 4, years: [1986, 1993, 1998, 2002] },
+            { region: 'CABA', pais: 'Argentina', flag: '🇦🇷', titulos: 4, years: [1975, 1983, 1995, 2021] },
+            { region: 'Asunción', pais: 'Paraguay', flag: '🇵🇾', titulos: 3, years: [1971, 1977, 2010] },
+            { region: 'Bahía', pais: 'Brasil', flag: '🇧🇷', titulos: 3, years: [1970, 1987, 2023] },
+            { region: 'Salto', pais: 'Uruguay', flag: '🇺🇾', titulos: 3, years: [1974, 2000, 2020] },
+            { region: 'Río Grande del Sur', pais: 'Brasil', flag: '🇧🇷', titulos: 2, years: [1982, 2022] },
+            { region: 'Córdoba', pais: 'Argentina', flag: '🇦🇷', titulos: 2, years: [1980, 2006] },
+            { region: 'Bogotá', pais: 'Colombia', flag: '🇨🇴', titulos: 2, years: [1992, 2018] },
+            { region: 'Antioquia (Medellín)', pais: 'Colombia', flag: '🇨🇴', titulos: 2, years: [2001, 2008] },
+            { region: 'Paraná', pais: 'Brasil', flag: '🇧🇷', titulos: 2, years: [2005, 2016] },
+            { region: 'Guayas (Guayaquil)', pais: 'Ecuador', flag: '🇪🇨', titulos: 1, years: [1966] },
+            { region: 'Lima', pais: 'Perú', flag: '🇵🇪', titulos: 1, years: [1967] },
+            { region: 'Cochabamba', pais: 'Bolivia', flag: '🇧🇴', titulos: 1, years: [1976] },
+            { region: 'Pichincha (Quito)', pais: 'Ecuador', flag: '🇪🇨', titulos: 1, years: [1985] },
+            { region: 'Santiago', pais: 'Chile', flag: '🇨🇱', titulos: 1, years: [1989] },
+            { region: 'Santa Cruz', pais: 'Bolivia', flag: '🇧🇴', titulos: 1, years: [1990] },
+            { region: 'Valparaíso', pais: 'Chile', flag: '🇨🇱', titulos: 1, years: [1994] },
+            { region: 'Mendoza', pais: 'Argentina', flag: '🇦🇷', titulos: 1, years: [2007] },
+            { region: 'Caracas', pais: 'Venezuela', flag: '🇻🇪', titulos: 1, years: [2009] },
+            { region: 'Goiás', pais: 'Brasil', flag: '🇧🇷', titulos: 1, years: [2017] },
+            { region: 'Loreto', pais: 'Perú', flag: '🇵🇪', titulos: 1, years: [1999] },
+            { region: 'Paysandú', pais: 'Uruguay', flag: '🇺🇾', titulos: 1, years: [2013] },
+        ];
+
+
+        // ==============================
+        // BUILD COPA SUDAMERICANA TABLE
+        // ==============================
+        function buildSudTable(data) {
+            const maxT = data[0].titulos;
+            let html = `<table class="palmares-table">
+    <thead><tr>
+      <th>#</th>
+      <th>Región</th>
+      <th>País</th>
+      <th>Títulos</th>
+      <th class="bar-cell">Dominancia</th>
+      <th>Años campeón</th>
+    </tr></thead><tbody>`;
+
+            data.forEach((row, i) => {
+                const pct = Math.round((row.titulos / maxT) * 100);
+                const rankClass = i === 0 ? 'rank-1' : i === 1 ? 'rank-2' : i === 2 ? 'rank-3' : 'rank-other';
+                const years = row.years.map(y => `<span class="year-tag">${y}</span>`).join('');
+                html += `<tr>
+      <td><span class="rank-badge ${rankClass}">${i + 1}</span></td>
+      <td><strong>${row.region}</strong></td>
+      <td><span class="country-flag">${row.flag}</span>${row.pais}</td>
+      <td><span class="titles-count">${row.titulos}</span></td>
+      <td class="bar-cell">
+        <div style="font-size:0.65rem;color:var(--muted);margin-bottom:4px;">${pct}%</div>
+        <div class="title-bar" style="width:${pct}%"></div>
+      </td>
+      <td><div class="years-list">${years}</div></td>
+    </tr>`;
+            });
+
+            html += '</tbody></table>';
+            document.getElementById('sudamericanaTable').innerHTML = html;
+        }
+
+
+        buildSudTable(sudData);
+
+
+        // ==============================
+        // SCROLL OBSERVER
+        // ==============================
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) e.target.classList.add('visible');
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        // ==============================
+        // NAV ACTIVE
+        // ==============================
+        window.addEventListener('scroll', () => {
+            const sections = ['villalba', 'palmares-jugador', 'liga', 'copa', 'supercopa', 'sudamericana'];
+            let current = '';
+            sections.forEach(id => {
+                const el = document.getElementById(id);
+                if (el && window.scrollY >= el.offsetTop - 80) current = id;
+            });
+            document.querySelectorAll('.nav-links a').forEach(a => {
+                const href = a.getAttribute('href');
+                a.classList.toggle('active', current && href.endsWith('#' + current));
+            });
+        });
+    </script>
+</body>
+</html>

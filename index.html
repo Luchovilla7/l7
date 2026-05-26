@@ -8,813 +8,24 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,700;1,400&display=swap"
         rel="stylesheet">
-    <style>
-        :root {
-            --green: #1a7a4a;
-            --green-light: #25a863;
-            --green-dark: #0d4a2c;
-            --gold: #c9a84c;
-            --gold-light: #e8c96a;
-            --cream: #f5f0e8;
-            --dark: #0e1a14;
-            --mid: #1c2e22;
-            --text: #e8ede9;
-            --muted: #7a9a82;
-            --white: #ffffff;
-            --red: #c0392b;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background-color: var(--dark);
-            color: var(--text);
-            font-family: 'DM Sans', sans-serif;
-            overflow-x: hidden;
-        }
-
-        /* NAV */
-        nav {
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            background: rgba(14, 26, 20, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(201, 168, 76, 0.2);
-            padding: 0 40px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            height: 60px;
-        }
-
-        .nav-logo {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.6rem;
-            letter-spacing: 3px;
-            color: var(--gold);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 8px;
-            list-style: none;
-            flex-wrap: wrap;
-        }
-
-        .nav-links a {
-            color: var(--muted);
-            text-decoration: none;
-            font-size: 0.75rem;
-            font-weight: 500;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            padding: 6px 14px;
-            border-radius: 20px;
-            transition: all 0.2s;
-        }
-
-        .nav-links a:hover,
-        .nav-links a.active {
-            color: var(--gold);
-            background: rgba(201, 168, 76, 0.1);
-        }
-
-        /* HERO PLAYER */
-        .player-hero {
-            min-height: 100vh;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .player-hero::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(ellipse at 30% 50%, rgba(37, 168, 99, 0.12) 0%, transparent 60%),
-                radial-gradient(ellipse at 80% 20%, rgba(201, 168, 76, 0.08) 0%, transparent 50%);
-            pointer-events: none;
-        }
-
-        .player-photo-side {
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 80px 40px;
-        }
-
-        .photo-frame {
-            position: relative;
-            width: 380px;
-            height: 480px;
-        }
-
-        .photo-frame::before {
-            content: '';
-            position: absolute;
-            top: -12px;
-            left: -12px;
-            right: 12px;
-            bottom: -12px;
-            border: 2px solid var(--gold);
-            border-radius: 4px;
-            opacity: 0.4;
-        }
-
-        .photo-frame::after {
-            content: '';
-            position: absolute;
-            top: 12px;
-            left: 12px;
-            right: -12px;
-            bottom: 12px;
-            border: 1px solid var(--green-light);
-            border-radius: 4px;
-            opacity: 0.3;
-        }
-
-        .player-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 4px;
-            display: block;
-            background: var(--mid);
-        }
-
-        .photo-placeholder {
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(145deg, var(--mid), var(--green-dark));
-            border-radius: 4px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 16px;
-            color: var(--muted);
-            border: 2px dashed rgba(201, 168, 76, 0.3);
-        }
-
-        .photo-placeholder svg {
-            opacity: 0.4;
-        }
-
-        .photo-placeholder span {
-            font-size: 0.8rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            opacity: 0.5;
-        }
-
-        .player-number-bg {
-            position: absolute;
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 22rem;
-            color: rgba(201, 168, 76, 0.04);
-            bottom: -40px;
-            left: -20px;
-            line-height: 1;
-            pointer-events: none;
-            user-select: none;
-        }
-
-        .player-info-side {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 80px 60px 80px 20px;
-            gap: 32px;
-        }
-
-        .player-tag {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.7rem;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            color: var(--gold);
-            border: 1px solid rgba(201, 168, 76, 0.3);
-            padding: 6px 16px;
-            border-radius: 20px;
-            width: fit-content;
-        }
-
-        .player-tag::before {
-            content: '';
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: var(--gold);
-        }
-
-        .player-name {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 5.5rem;
-            line-height: 0.9;
-            letter-spacing: 2px;
-        }
-
-        .player-name .first {
-            color: var(--text);
-            display: block;
-        }
-
-        .player-name .last {
-            color: var(--gold);
-            display: block;
-        }
-
-        .player-meta {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            padding-left: 2px;
-            border-left: 3px solid var(--green-light);
-            padding-left: 20px;
-        }
-
-        .player-meta p {
-            font-size: 0.85rem;
-            color: var(--muted);
-            line-height: 1.6;
-        }
-
-        .player-meta strong {
-            color: var(--text);
-        }
-
-        /* STATS OVERVIEW */
-        .stats-overview {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2px;
-            margin-top: 8px;
-        }
-
-        .stat-block {
-            background: rgba(255, 255, 255, 0.03);
-            padding: 24px 20px;
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            text-align: center;
-            transition: all 0.3s;
-            cursor: default;
-        }
-
-        .stat-block:hover {
-            background: rgba(201, 168, 76, 0.08);
-            border-color: rgba(201, 168, 76, 0.2);
-        }
-
-        .stat-block .num {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 3rem;
-            color: var(--gold);
-            line-height: 1;
-            display: block;
-        }
-
-        .stat-block .lbl {
-            font-size: 0.68rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: var(--muted);
-            margin-top: 4px;
-            display: block;
-        }
-
-        .palmares-box {
-            background: linear-gradient(135deg, rgba(37, 168, 99, 0.1), rgba(201, 168, 76, 0.05));
-            border: 1px solid rgba(201, 168, 76, 0.2);
-            padding: 20px 24px;
-            border-radius: 2px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 16px;
-        }
-
-        .palmares-box .palm-label {
-            font-size: 0.72rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: var(--muted);
-        }
-
-        .palmares-box .palm-content {
-            font-size: 0.9rem;
-            color: var(--text);
-            margin-top: 4px;
-        }
-
-        .titles-input-row {
-            display: flex;
-            gap: 12px;
-            align-items: center;
-        }
-
-        .titles-input {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(201, 168, 76, 0.3);
-            color: var(--gold);
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 2.5rem;
-            width: 80px;
-            text-align: center;
-            padding: 8px;
-            border-radius: 2px;
-            outline: none;
-            transition: border-color 0.2s;
-        }
-
-        .titles-input:focus {
-            border-color: var(--gold);
-        }
-
-        /* CAREER TABLE */
-        section {
-            padding: 80px 60px;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .section-header {
-            display: flex;
-            align-items: flex-end;
-            gap: 24px;
-            margin-bottom: 48px;
-        }
-
-        .section-number {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 5rem;
-            color: rgba(201, 168, 76, 0.12);
-            line-height: 0.8;
-            flex-shrink: 0;
-        }
-
-        .section-title-block {}
-
-        .section-subtitle {
-            font-size: 0.7rem;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            color: var(--green-light);
-            margin-bottom: 6px;
-        }
-
-        .section-title {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 3rem;
-            letter-spacing: 2px;
-            color: var(--text);
-            line-height: 1;
-        }
-
-        /* CAREER CARDS */
-        .career-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-            gap: 12px;
-        }
-
-        .career-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            padding: 20px;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s;
-            cursor: default;
-        }
-
-        .career-card:hover {
-            background: rgba(255, 255, 255, 0.06);
-            border-color: rgba(201, 168, 76, 0.2);
-            transform: translateY(-2px);
-        }
-
-        .career-card::before {
-            content: attr(data-age);
-            position: absolute;
-            top: -10px;
-            right: -5px;
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 5rem;
-            color: rgba(255, 255, 255, 0.03);
-            line-height: 1;
-            pointer-events: none;
-        }
-
-        .card-age {
-            font-size: 0.65rem;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            color: var(--muted);
-            margin-bottom: 8px;
-        }
-
-        .card-club {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.6rem;
-            letter-spacing: 1px;
-            color: var(--text);
-            line-height: 1;
-            margin-bottom: 4px;
-        }
-
-        .card-number {
-            font-size: 0.72rem;
-            color: var(--muted);
-            margin-bottom: 16px;
-        }
-
-        .card-stats {
-            display: flex;
-            gap: 16px;
-        }
-
-        .card-stat {
-            flex: 1;
-        }
-
-        .card-stat .val {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 2rem;
-            color: var(--gold);
-            display: block;
-            line-height: 1;
-        }
-
-        .card-stat .val.goals {
-            color: var(--green-light);
-        }
-
-        .card-stat .key {
-            font-size: 0.6rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: var(--muted);
-            margin-top: 2px;
-            display: block;
-        }
-
-        .goals-bar {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--green-light), var(--gold));
-            transition: width 1s ease;
-        }
-
-        /* PALMARÉS TABLE */
-        .palmares-section {}
-
-        .comp-tabs {
-            display: flex;
-            gap: 4px;
-            margin-bottom: 32px;
-            flex-wrap: wrap;
-        }
-
-        .comp-tab {
-            font-size: 0.72rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            padding: 8px 20px;
-            background: transparent;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: var(--muted);
-            cursor: pointer;
-            transition: all 0.2s;
-            font-family: 'DM Sans', sans-serif;
-            font-weight: 500;
-        }
-
-        .comp-tab:hover,
-        .comp-tab.active {
-            background: rgba(201, 168, 76, 0.12);
-            border-color: var(--gold);
-            color: var(--gold);
-        }
-
-        .palmares-table-wrap {
-            overflow-x: auto;
-        }
-
-        .palmares-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.85rem;
-        }
-
-        .palmares-table thead tr {
-            border-bottom: 1px solid rgba(201, 168, 76, 0.3);
-        }
-
-        .palmares-table th {
-            font-size: 0.65rem;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            color: var(--gold);
-            padding: 14px 16px;
-            text-align: left;
-            font-weight: 500;
-        }
-
-        .palmares-table td {
-            padding: 14px 16px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-            color: var(--text);
-            vertical-align: middle;
-        }
-
-        .palmares-table tbody tr {
-            transition: background 0.2s;
-        }
-
-        .palmares-table tbody tr:hover {
-            background: rgba(255, 255, 255, 0.03);
-        }
-
-        .rank-badge {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 0.9rem;
-            font-weight: 700;
-        }
-
-        .rank-1 {
-            background: linear-gradient(135deg, #c9a84c, #e8c96a);
-            color: var(--dark);
-        }
-
-        .rank-2 {
-            background: linear-gradient(135deg, #8a9ba8, #b5c4ce);
-            color: var(--dark);
-        }
-
-        .rank-3 {
-            background: linear-gradient(135deg, #a0714a, #c9956a);
-            color: var(--dark);
-        }
-
-        .rank-other {
-            background: rgba(255, 255, 255, 0.07);
-            color: var(--muted);
-            font-size: 0.75rem;
-        }
-
-        .titles-count {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.6rem;
-            color: var(--gold);
-        }
-
-        .years-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-        }
-
-        .year-tag {
-            font-size: 0.7rem;
-            padding: 3px 8px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 3px;
-            color: var(--muted);
-            letter-spacing: 0.5px;
-            transition: all 0.2s;
-        }
-
-        .year-tag:hover {
-            background: rgba(201, 168, 76, 0.1);
-            border-color: rgba(201, 168, 76, 0.3);
-            color: var(--gold);
-        }
-
-        .bar-cell {
-            min-width: 120px;
-        }
-
-        .title-bar {
-            height: 6px;
-            background: linear-gradient(90deg, var(--green-light), var(--gold));
-            border-radius: 3px;
-            margin-top: 4px;
-            transition: width 1s ease;
-        }
-
-        /* COPA SUD */
-        .country-flag {
-            font-size: 1.1rem;
-            margin-right: 6px;
-        }
-
-        .province-region {
-            font-size: 0.75rem;
-            color: var(--muted);
-            margin-top: 2px;
-        }
-
-        /* HIDDEN TABS */
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        /* FOOTER */
-        footer {
-            text-align: center;
-            padding: 40px;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            color: var(--muted);
-            font-size: 0.75rem;
-            letter-spacing: 1px;
-        }
-
-        /* RESPONSIVE */
-        @media(max-width: 900px) {
-            .player-hero {
-                grid-template-columns: 1fr;
-            }
-
-            .player-info-side {
-                padding: 40px;
-            }
-
-            .player-photo-side {
-                padding: 60px 40px 0;
-            }
-
-            .photo-frame {
-                width: 280px;
-                height: 360px;
-            }
-
-            .player-name {
-                font-size: 3.5rem;
-            }
-
-            section {
-                padding: 60px 24px;
-            }
-
-            nav {
-                padding: 0 20px;
-            }
-
-            .nav-links {
-                display: none;
-            }
-        }
-
-        /* PLAYER PALMARES */
-        .palmares-clubs {
-            display: flex;
-            flex-direction: column;
-            gap: 32px;
-        }
-
-        .club-palmares-block {
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            background: rgba(255, 255, 255, 0.02);
-            overflow: hidden;
-            transition: border-color 0.3s;
-        }
-
-        .club-palmares-block:hover {
-            border-color: rgba(201, 168, 76, 0.2);
-        }
-
-        .club-palmares-header {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            padding: 20px 28px;
-            background: rgba(255, 255, 255, 0.02);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .club-name-big {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 2rem;
-            letter-spacing: 2px;
-            color: var(--text);
-            flex: 1;
-        }
-
-        .club-period {
-            font-size: 0.72rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: var(--muted);
-            margin-top: 2px;
-        }
-
-        .club-title-count {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 3rem;
-            color: var(--gold);
-            line-height: 1;
-            text-align: center;
-        }
-
-        .club-title-label {
-            font-size: 0.6rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: var(--muted);
-        }
-
-        .trophies-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
-            gap: 1px;
-            background: rgba(255, 255, 255, 0.04);
-        }
-
-        .trophy-item {
-            background: var(--dark);
-            padding: 18px 22px;
-            display: flex;
-            align-items: flex-start;
-            gap: 14px;
-            transition: background 0.2s;
-        }
-
-        .trophy-item:hover {
-            background: rgba(201, 168, 76, 0.05);
-        }
-
-        .trophy-icon {
-            font-size: 1.5rem;
-            flex-shrink: 0;
-            margin-top: 2px;
-        }
-
-        .trophy-name {
-            font-size: 0.82rem;
-            font-weight: 500;
-            color: var(--text);
-            line-height: 1.3;
-        }
-
-        .trophy-year {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.1rem;
-            color: var(--gold);
-            margin-top: 4px;
-            display: block;
-            letter-spacing: 1px;
-        }
-
-        /* SCROLL ANIMATION */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
     <nav>
-        <span class="nav-logo">⚽ FootStats</span>
+        <a href="index.html" class="nav-logo" style="text-decoration:none;">⚽ FootStats</a>
         <ul class="nav-links">
-            <li><a href="#villalba" class="active">Villalba</a></li>
-            <li><a href="#palmares-jugador">Palmarés</a></li>
-            <li><a href="#liga">Liga Argentina</a></li>
-            <li><a href="#copa">Copa Argentina</a></li>
-            <li><a href="#supercopa">Supercopa</a></li>
-            <li><a href="#sudamericana">Copa Sudamericana</a></li>
+            <li><a href="index.html#villalba" class="active">Villalba</a></li>
+            <li><a href="index.html#palmares-jugador">Palmarés</a></li>
+            <li><a href="argentina.html#liga">Liga Argentina</a></li>
+            <li><a href="argentina.html#copa">Copa Argentina</a></li>
+            <li><a href="argentina.html#supercopa">Supercopa</a></li>
+            <li><a href="sudamericano.html#sudamericana">Campeonato Sudamericano</a></li>
         </ul>
     </nav>
 
-    <!-- ====== PLAYER HERO ====== -->
+<!-- ====== PLAYER HERO ====== -->
     <section id="villalba" style="padding:0; border:none;">
         <div class="player-hero">
             <div class="player-photo-side">
@@ -835,7 +46,7 @@
                 <div class="player-meta">
                     <p><strong>Posición:</strong> Delantero / Extremo</p>
                     <p><strong>Dorsal principal:</strong> #7</p>
-                    <p><strong>Clubes:</strong> Misiones · Cataluña · Berlín · Osaka · Seúl</p>
+                    <p><strong>Clubes:</strong> Misiones · Barcelona · Berlín · Osaka · Seúl</p>
                     <p><strong>Temporadas:</strong> 17 (desde los 18 años)</p>
                 </div>
 
@@ -871,7 +82,7 @@
                                         style="color:var(--muted);">Misiones (1ª etapa)</span></div>
                                 <div style="font-size:0.78rem;color:var(--text);"><span
                                         style="color:var(--gold);font-weight:600;">11</span> <span
-                                        style="color:var(--muted);">Cataluña</span></div>
+                                        style="color:var(--muted);">Barcelona</span></div>
                                 <div style="font-size:0.78rem;color:var(--text);"><span
                                         style="color:var(--gold);font-weight:600;">1</span> <span
                                         style="color:var(--muted);">Berlín</span></div>
@@ -894,7 +105,8 @@
         </div>
     </section>
 
-    <!-- ====== CAREER ====== -->
+    
+<!-- ====== CAREER ====== -->
     <section>
         <div class="section-header fade-in">
             <div class="section-number">01</div>
@@ -906,7 +118,8 @@
         <div class="career-grid" id="careerGrid"></div>
     </section>
 
-    <!-- ====== PLAYER PALMARES ====== -->
+    
+<!-- ====== PLAYER PALMARES ====== -->
     <section id="palmares-jugador">
         <div class="section-header fade-in">
             <div class="section-number">02</div>
@@ -918,62 +131,13 @@
         <div class="palmares-clubs" id="palmaresClubs"></div>
     </section>
 
-    <!-- ====== LIGA ARGENTINA ====== -->
-    <section id="liga">
-        <div class="section-header fade-in">
-            <div class="section-number">03</div>
-            <div class="section-title-block">
-                <div class="section-subtitle">Palmarés provincial</div>
-                <div class="section-title">Liga Argentina de Fútbol</div>
-            </div>
-        </div>
-        <div class="palmares-table-wrap fade-in" id="ligaTable"></div>
-    </section>
-
-    <!-- ====== COPA ARGENTINA ====== -->
-    <section id="copa">
-        <div class="section-header fade-in">
-            <div class="section-number">03</div>
-            <div class="section-title-block">
-                <div class="section-subtitle">Palmarés provincial</div>
-                <div class="section-title">Copa Argentina de Fútbol</div>
-            </div>
-        </div>
-        <div class="palmares-table-wrap fade-in" id="copaTable"></div>
-    </section>
-
-    <!-- ====== SUPERCOPA ====== -->
-    <section id="supercopa">
-        <div class="section-header fade-in">
-            <div class="section-number">04</div>
-            <div class="section-title-block">
-                <div class="section-subtitle">Palmarés provincial</div>
-                <div class="section-title">Supercopa Argentina de Fútbol</div>
-            </div>
-        </div>
-        <div class="palmares-table-wrap fade-in" id="supercopaTable"></div>
-    </section>
-
-    <!-- ====== COPA SUDAMERICANA ====== -->
-    <section id="sudamericana">
-        <div class="section-header fade-in">
-            <div class="section-number">05</div>
-            <div class="section-title-block">
-                <div class="section-subtitle">Palmarés internacional</div>
-                <div class="section-title">Copa Sudamericana</div>
-            </div>
-        </div>
-        <div class="palmares-table-wrap fade-in" id="sudamericanaTable"></div>
-    </section>
-
+    
     <footer>
-        <span>⚽ FootStats — Estadísticas de Fútbol · Liga Argentina · Copa Sudamericana · 1965–2025</span>
+        <span>⚽ FootStats — Estadísticas de Fútbol · Liga Argentina · Campeonato Sudamericano · 1965–2025</span>
     </footer>
 
     <script>
-        // ==============================
-        // DATA
-        // ==============================
+
         const careerData = [
             { age: 18, num: 32, club: 'Misiones', goals: 9, games: 20 },
             { age: 19, num: 32, club: 'Misiones', goals: 10, games: 28 },
@@ -981,10 +145,10 @@
             { age: 21, num: 7, club: 'Misiones', goals: 19, games: 31 },
             { age: 22, num: 7, club: 'Misiones', goals: 27, games: 45 },
             { age: 23, num: 7, club: 'Misiones', goals: 20, games: 38 },
-            { age: 24, num: 20, club: 'Cataluña', goals: 16, games: 34 },
-            { age: 25, num: 7, club: 'Cataluña', goals: 38, games: 49 },
-            { age: 26, num: 7, club: 'Cataluña', goals: 28, games: 43 },
-            { age: 27, num: 7, club: 'Cataluña', goals: 32, games: 41 },
+            { age: 24, num: 20, club: 'Barcelona', goals: 16, games: 34 },
+            { age: 25, num: 7, club: 'Barcelona', goals: 38, games: 49 },
+            { age: 26, num: 7, club: 'Barcelona', goals: 28, games: 43 },
+            { age: 27, num: 7, club: 'Barcelona', goals: 32, games: 41 },
             { age: 28, num: 20, club: 'Berlín', goals: 16, games: 35 },
             { age: 29, num: 20, club: 'Berlín', goals: 11, games: 28 },
             { age: 30, num: 32, club: 'Osaka', goals: 17, games: 30 },
@@ -994,90 +158,6 @@
             { age: 34, num: 32, club: 'Seúl', goals: 14, games: 33 },
         ];
 
-        const ligaData = [
-            { prov: 'CABA', titulos: 15, years: [1965, 1968, 1971, 1974, 1976, 1980, 1984, 1987, 1991, 1995, 1999, 2002, 2006, 2014, 2019] },
-            { prov: 'Buenos Aires', titulos: 12, years: [1966, 1970, 1972, 1975, 1979, 1983, 1992, 1996, 2001, 2011, 2020, 2022] },
-            { prov: 'Córdoba', titulos: 9, years: [1967, 1973, 1978, 1981, 1989, 1994, 1997, 2003, 2012] },
-            { prov: 'Santa Fe', titulos: 8, years: [1969, 1977, 1982, 1985, 1990, 1998, 2008, 2016] },
-            { prov: 'Mendoza', titulos: 5, years: [1988, 1993, 2000, 2005, 2015] },
-            { prov: 'Misiones', titulos: 2, years: [1986, 2017] },
-            { prov: 'Tucumán', titulos: 2, years: [2013, 2024] },
-            { prov: 'Entre Ríos', titulos: 2, years: [2004, 2010] },
-            { prov: 'Chaco', titulos: 1, years: [2007] },
-            { prov: 'Salta', titulos: 1, years: [2018] },
-            { prov: 'Neuquén', titulos: 1, years: [2025] },
-            { prov: 'San Juan', titulos: 1, years: [2021] },
-            { prov: 'La Rioja', titulos: 1, years: [2023] },
-            { prov: 'San Luis', titulos: 1, years: [2009] },
-        ];
-
-        const copaData = [
-            { prov: 'Misiones', titulos: 12, years: [1965, 1971, 1974, 1978, 1983, 1986, 1990, 1994, 1998, 2003, 2009, 2015, 2024] },
-            { prov: 'Buenos Aires', titulos: 9, years: [1966, 1970, 1975, 1980, 1987, 1992, 2001, 2013, 2020] },
-            { prov: 'CABA', titulos: 7, years: [1967, 1972, 1976, 1981, 1985, 2002, 2018] },
-            { prov: 'Córdoba', titulos: 5, years: [1968, 1973, 1988, 1989, 2006, 2014, 2016] },
-            { prov: 'Santa Fe', titulos: 4, years: [1969, 1991, 2000, 2022] },
-            { prov: 'Tucumán', titulos: 3, years: [1979, 1995, 2019] },
-            { prov: 'Entre Ríos', titulos: 2, years: [1996, 2005] },
-            { prov: 'Mendoza', titulos: 2, years: [1984, 2010] },
-            { prov: 'Chaco', titulos: 2, years: [1993, 2021] },
-            { prov: 'San Juan', titulos: 2, years: [2004, 2017] },
-            { prov: 'Salta', titulos: 2, years: [1977, 2025] },
-            { prov: 'Corrientes', titulos: 2, years: [1982, 2007] },
-            { prov: 'La Rioja', titulos: 1, years: [1997] },
-            { prov: 'Formosa', titulos: 1, years: [1999] },
-            { prov: 'Neuquén', titulos: 1, years: [2011] },
-            { prov: 'San Luis', titulos: 1, years: [2012] },
-            { prov: 'Catamarca', titulos: 1, years: [2008] },
-            { prov: 'Jujuy', titulos: 1, years: [2023] },
-        ];
-
-        const supercopaData = [
-            { prov: 'Córdoba', titulos: 12, years: [1968, 1974, 1979, 1982, 1990, 1995, 1998, 2004, 2007, 2013, 2015, 2017] },
-            { prov: 'CABA', titulos: 10, years: [1966, 1969, 1972, 1973, 1975, 1977, 1988, 1992, 2000, 2003] },
-            { prov: 'Buenos Aires', titulos: 8, years: [1967, 1971, 1976, 1981, 1993, 2002, 2021, 2023] },
-            { prov: 'Mendoza', titulos: 6, years: [1985, 1989, 1994, 2001, 2006, 2011] },
-            { prov: 'Santa Fe', titulos: 6, years: [1970, 1978, 1983, 1986, 1991, 1999] },
-            { prov: 'Misiones', titulos: 5, years: [1984, 1987, 2016, 2018, 2025] },
-            { prov: 'Tucumán', titulos: 4, years: [1980, 1996, 2014, 2020] },
-            { prov: 'Entre Ríos', titulos: 3, years: [1997, 2005, 2006] },
-            { prov: 'Chaco', titulos: 1, years: [2008] },
-            { prov: 'Catamarca', titulos: 1, years: [2009] },
-            { prov: 'Neuquén', titulos: 1, years: [2012] },
-            { prov: 'Salta', titulos: 1, years: [2019] },
-            { prov: 'San Juan', titulos: 1, years: [2022] },
-            { prov: 'La Rioja', titulos: 1, years: [2024] },
-            { prov: 'San Luis', titulos: 1, years: [2010] },
-        ];
-
-        const sudData = [
-            { region: 'Río de Janeiro', pais: 'Brasil', flag: '🇧🇷', titulos: 7, years: [1972, 1973, 1979, 1996, 2014, 2015, 2024] },
-            { region: 'Buenos Aires', pais: 'Argentina', flag: '🇦🇷', titulos: 6, years: [1978, 1981, 1991, 1997, 2004, 2019] },
-            { region: 'São Paulo', pais: 'Brasil', flag: '🇧🇷', titulos: 4, years: [1968, 1969, 1984, 2012] },
-            { region: 'Minas Gerais', pais: 'Brasil', flag: '🇧🇷', titulos: 4, years: [1988, 2003, 2011, 2025] },
-            { region: 'Montevideo', pais: 'Uruguay', flag: '🇺🇾', titulos: 4, years: [1986, 1993, 1998, 2002] },
-            { region: 'CABA', pais: 'Argentina', flag: '🇦🇷', titulos: 4, years: [1975, 1983, 1995, 2021] },
-            { region: 'Asunción', pais: 'Paraguay', flag: '🇵🇾', titulos: 3, years: [1971, 1977, 2010] },
-            { region: 'Bahía', pais: 'Brasil', flag: '🇧🇷', titulos: 3, years: [1970, 1987, 2023] },
-            { region: 'Salto', pais: 'Uruguay', flag: '🇺🇾', titulos: 3, years: [1974, 2000, 2020] },
-            { region: 'Río Grande del Sur', pais: 'Brasil', flag: '🇧🇷', titulos: 2, years: [1982, 2022] },
-            { region: 'Córdoba', pais: 'Argentina', flag: '🇦🇷', titulos: 2, years: [1980, 2006] },
-            { region: 'Bogotá', pais: 'Colombia', flag: '🇨🇴', titulos: 2, years: [1992, 2018] },
-            { region: 'Antioquia (Medellín)', pais: 'Colombia', flag: '🇨🇴', titulos: 2, years: [2001, 2008] },
-            { region: 'Paraná', pais: 'Brasil', flag: '🇧🇷', titulos: 2, years: [2005, 2016] },
-            { region: 'Guayas (Guayaquil)', pais: 'Ecuador', flag: '🇪🇨', titulos: 1, years: [1966] },
-            { region: 'Lima', pais: 'Perú', flag: '🇵🇪', titulos: 1, years: [1967] },
-            { region: 'Cochabamba', pais: 'Bolivia', flag: '🇧🇴', titulos: 1, years: [1976] },
-            { region: 'Pichincha (Quito)', pais: 'Ecuador', flag: '🇪🇨', titulos: 1, years: [1985] },
-            { region: 'Santiago', pais: 'Chile', flag: '🇨🇱', titulos: 1, years: [1989] },
-            { region: 'Santa Cruz', pais: 'Bolivia', flag: '🇧🇴', titulos: 1, years: [1990] },
-            { region: 'Valparaíso', pais: 'Chile', flag: '🇨🇱', titulos: 1, years: [1994] },
-            { region: 'Mendoza', pais: 'Argentina', flag: '🇦🇷', titulos: 1, years: [2007] },
-            { region: 'Caracas', pais: 'Venezuela', flag: '🇻🇪', titulos: 1, years: [2009] },
-            { region: 'Goiás', pais: 'Brasil', flag: '🇧🇷', titulos: 1, years: [2017] },
-            { region: 'Loreto', pais: 'Perú', flag: '🇵🇪', titulos: 1, years: [1999] },
-            { region: 'Paysandú', pais: 'Uruguay', flag: '🇺🇾', titulos: 1, years: [2013] },
-        ];
 
         // ==============================
         // CAREER CARDS
@@ -1118,6 +198,7 @@
         document.getElementById('totalGames').textContent = totalP;
         document.getElementById('avgGoals').textContent = (totalG / totalP).toFixed(2);
 
+
         // ==============================
         // PLAYER PALMARES DATA
         // ==============================
@@ -1134,7 +215,7 @@
                 ]
             },
             {
-                club: 'Cataluña',
+                club: 'Barcelona',
                 period: '24–27 años',
                 titles: 11,
                 trophies: [
@@ -1218,80 +299,6 @@
   `;
         });
 
-        // ==============================
-        // BUILD PALMARES TABLE (ARG)
-        // ==============================
-        function buildPalmaresTable(data, containerId) {
-            const maxT = data[0].titulos;
-            let html = `<table class="palmares-table">
-    <thead><tr>
-      <th>#</th>
-      <th>Provincia</th>
-      <th>Títulos</th>
-      <th class="bar-cell">Dominancia</th>
-      <th>Años campeón</th>
-    </tr></thead><tbody>`;
-
-            data.forEach((row, i) => {
-                const pct = Math.round((row.titulos / maxT) * 100);
-                const rankClass = i === 0 ? 'rank-1' : i === 1 ? 'rank-2' : i === 2 ? 'rank-3' : 'rank-other';
-                const years = row.years.map(y => `<span class="year-tag">${y}</span>`).join('');
-                html += `<tr>
-      <td><span class="rank-badge ${rankClass}">${i + 1}</span></td>
-      <td><strong>${row.prov}</strong></td>
-      <td><span class="titles-count">${row.titulos}</span></td>
-      <td class="bar-cell">
-        <div style="font-size:0.65rem;color:var(--muted);margin-bottom:4px;">${pct}%</div>
-        <div class="title-bar" style="width:${pct}%"></div>
-      </td>
-      <td><div class="years-list">${years}</div></td>
-    </tr>`;
-            });
-
-            html += '</tbody></table>';
-            document.getElementById(containerId).innerHTML = html;
-        }
-
-        // ==============================
-        // BUILD COPA SUDAMERICANA TABLE
-        // ==============================
-        function buildSudTable(data) {
-            const maxT = data[0].titulos;
-            let html = `<table class="palmares-table">
-    <thead><tr>
-      <th>#</th>
-      <th>Región</th>
-      <th>País</th>
-      <th>Títulos</th>
-      <th class="bar-cell">Dominancia</th>
-      <th>Años campeón</th>
-    </tr></thead><tbody>`;
-
-            data.forEach((row, i) => {
-                const pct = Math.round((row.titulos / maxT) * 100);
-                const rankClass = i === 0 ? 'rank-1' : i === 1 ? 'rank-2' : i === 2 ? 'rank-3' : 'rank-other';
-                const years = row.years.map(y => `<span class="year-tag">${y}</span>`).join('');
-                html += `<tr>
-      <td><span class="rank-badge ${rankClass}">${i + 1}</span></td>
-      <td><strong>${row.region}</strong></td>
-      <td><span class="country-flag">${row.flag}</span>${row.pais}</td>
-      <td><span class="titles-count">${row.titulos}</span></td>
-      <td class="bar-cell">
-        <div style="font-size:0.65rem;color:var(--muted);margin-bottom:4px;">${pct}%</div>
-        <div class="title-bar" style="width:${pct}%"></div>
-      </td>
-      <td><div class="years-list">${years}</div></td>
-    </tr>`;
-            });
-
-            html += '</tbody></table>';
-            document.getElementById('sudamericanaTable').innerHTML = html;
-        }
-
-        buildPalmaresTable(ligaData, 'ligaTable');
-        buildPalmaresTable(copaData, 'copaTable');
-        buildPalmaresTable(supercopaData, 'supercopaTable');
-        buildSudTable(sudData);
 
         // ==============================
         // SCROLL OBSERVER
@@ -1315,10 +322,10 @@
                 if (el && window.scrollY >= el.offsetTop - 80) current = id;
             });
             document.querySelectorAll('.nav-links a').forEach(a => {
-                a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+                const href = a.getAttribute('href');
+                a.classList.toggle('active', current && href.endsWith('#' + current));
             });
         });
     </script>
 </body>
-
 </html>
